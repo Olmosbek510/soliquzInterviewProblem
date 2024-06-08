@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    build:
+      context: ./eurika-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - app-network
+
+  card-service:
+    build:
+      context: ./card-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+      - postgres
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+      - postgres
+
+  payment-service:
+    build:
+      context: ./payment-service
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+      - postgres
+      - user-service
+      - card-service
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: soliquz_payment_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root123
+    ports:
+      - "5434:5434"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
