@@ -1,17 +1,19 @@
 package uz.soliq.paymentservice.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import uz.soliq.cardservice.entity.Card;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import uz.soliq.paymentservice.client.CardClient;
+import uz.soliq.paymentservice.dto.Card;
 import uz.soliq.paymentservice.entity.Transaction;
 import uz.soliq.paymentservice.repository.TransactionRepository;
 
 @RestController
-@RequestMapping("/payments")
 @RequiredArgsConstructor
+@RequestMapping("/payments")
 public class PaymentController {
     private final CardClient cardClient;
     private final TransactionRepository transactionRepository;

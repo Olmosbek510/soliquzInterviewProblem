@@ -3,7 +3,6 @@ package uz.soliq.cardservice.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import uz.soliq.userservice.entity.User;
 
 @Getter
 @Setter
